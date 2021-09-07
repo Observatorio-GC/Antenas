@@ -108,6 +108,7 @@
 		<script type="text/javascript" src="scripts/Cajeros.js"></script>
 		<script type="text/javascript" src="scripts/PoligonoClaro.js"></script>
 		<script type="text/javascript" src="scripts/Pagofacil.js"></script>
+		<script type="text/javascript" src="scripts/Antenas.js"></script>
 	</head>
 	<body> 
 		<h1 style="position: relative; margin-top: 10px; margin-left: 100px; z-index: 2">Observatorio Territorial de Godoy Cruz</h1>
@@ -433,7 +434,12 @@
 				if (feature.properties && feature.properties.Nombre_1) { 
 					layer.bindPopup( "<strong>" + feature.properties.Nombre_1 + "</strong><br/>" + feature.properties.Area_km2);
 				} 
-			}			
+			}
+		function agregarPopupAntena(feature, layer) { 
+				if (feature.properties && feature.properties.usu) { 
+						layer.bindPopup( "<strong>" + feature.properties.usu );
+				} 
+		    }
 			function agregarPopupcuencas(feature, layer) { 
 				if (feature.properties && feature.properties.Nombre_1) { 
 						layer.bindPopup( "<strong>" + feature.properties.Nombre_1 + "</strong><br/>" + feature.properties.Superficie);
@@ -604,7 +610,8 @@
 				caja= L.geoJson(Cajeros, { pointToLayer: crearIconoAmarillo,  onEachFeature: agregarPopupbarrios}),
 				claro = L.geoJson(PoligonoClaro, { pointToLayer: crearIconoAmarillo,  onEachFeature: agregarPopupbarrios}),
 				cobro= L.geoJson(Pagofacil, { pointToLayer: crearIconoNaranja,  onEachFeature: agregarPopupbarrios}),
-				sistcloacal= L.geoJson(SistemaCloacal, { onEachFeature: agregarPopupcloacas});
+				sistcloacal= L.geoJson(SistemaCloacal, { onEachFeature: agregarPopupcloacas}),
+		                 antenas= L.geoJson(Antenas, { onEachFeature: agregarPopupAntena});;
 				
 
 			/* CREACIÓN DEL MAPA CON BASE LAYERS Y OVERLAYS */
@@ -630,6 +637,7 @@
 				"OpenTopoMap": mapabase_ot,
 				 "Argenmap": mapabase_argenmap,
 				 "Satelite Bing": mapa_bing,
+				   "Antenas":antenas,
 			};
 			
 				
